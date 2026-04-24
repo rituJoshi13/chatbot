@@ -13,7 +13,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="font-bold text-3xl text-center mt-30">
       <h1>{message}</h1>
     </div>
   );
