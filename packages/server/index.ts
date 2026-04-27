@@ -1,18 +1,16 @@
 import express from "express";
-import type { Request, Response } from "express";
 import dotenv from "dotenv";
+import router from "./routes";
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const cors = require("cors");
+app.use(express.json());
+app.use(cors());
+app.use(router);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("hello world");
-});
-app.get("/api/hello", (req: Request, res: Response) => {
-  res.send({ message: "Hello from the API!" });
-});
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   console.log("Server running on http://localhost:3000");
