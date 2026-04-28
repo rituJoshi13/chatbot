@@ -1,5 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
+import fs from "fs";
+import path from "path";
+import template from "../prompts/chatbot.txt";
 // Ensure the environment variable is loaded
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 const MODEL_NAME = "gemini-3-flash-preview"; // gemini-3.1-flash-lite-preview
@@ -13,6 +15,13 @@ type ChatMessage = {
   parts: MessagePart[];
 };
 
+const parkInfo = fs.readFileSync(
+  path.join(__dirname, "../prompts/wonderWorld.md"),
+  "utf-8",
+);
+
+const instruction = template.replace("{{PARK_INFO}}", parkInfo);
+
 type ChatResponse = {
   message?: string;
 };
@@ -23,8 +32,7 @@ export const chatService = {
     const model = genAI.getGenerativeModel({
       model: MODEL_NAME,
       // System instruction is set at the model level for chat sessions
-      systemInstruction:
-        "You are a direct assistant. Give minimal answers unless asked for detail.",
+      systemInstruction: instruction,
     });
 
     // 2. Separate the newest message from the history

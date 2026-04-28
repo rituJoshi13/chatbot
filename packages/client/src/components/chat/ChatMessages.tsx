@@ -28,7 +28,7 @@ const ChatMessages = ({ messages }: Props) => {
           onCopy={handleCopy}
           key={index}
           ref={index === messages.length - 1 ? lastMessageRef : null}
-          className={`px-3 py-2 rounded-xl ${msg.role === "user" ? "bg-blue-600 text-white self-end" : "bg-gray-100 text-black self-start"}`}
+          className={`px-3 py-2 rounded-xl max-w-2xl ${msg.role === "user" ? "bg-blue-600 text-white self-end" : "bg-gray-100 text-black self-start"}`}
         >
           <ReactMarkDown>{msg.parts[0].text}</ReactMarkDown>
         </div>
